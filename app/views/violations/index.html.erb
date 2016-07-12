@@ -1,0 +1,65 @@
+<p id="notice"><%= notice %></p>
+
+<h2>Import Violations</h2>
+<%= form_tag import_violations_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import CSV" %>
+<% end %>
+
+<h2>Violation Statistics</h2>
+<table class="ui celled table">
+  <thead>
+    <tr>
+      <th>Violation Category</th>
+      <th>Category Count</th>
+      <th>Earliest Violation</th>
+      <th>Latest Violation</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @category_group.each do |category, date| %>
+      <tr>
+        <td><%= category %></td>
+        <td><%= date.length %></td>
+        <td><%= date.min %></td>
+        <td><%= date.max %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2>All Violations</h2>
+<table class="ui celled table">
+  <thead>
+    <tr>
+      <th>Violation</th>
+      <th>Inspection</th>
+      <th>Violation category</th>
+      <th>Violation date</th>
+      <th>Violation date closed</th>
+      <th>Violation type</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @violations.each do |violation| %>
+      <tr>
+        <td><%= violation.violation_id %></td>
+        <td><%= violation.inspection_id %></td>
+        <td><%= violation.violation_category %></td>
+        <td><%= violation.violation_date %></td>
+        <td><%= violation.violation_date_closed %></td>
+        <td><%= violation.violation_type %></td>
+        <td><%= link_to 'Show', violation %></td>
+        <td><%= link_to 'Edit', edit_violation_path(violation) %></td>
+        <td><%= link_to 'Destroy', violation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+
