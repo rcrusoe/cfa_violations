@@ -1,6 +1,9 @@
 <p id="notice"><%= notice %></p>
 
 <h2>Import Violations</h2>
+<p>
+  Upload the violations file to add the csv to the database.
+</p>
 <%= form_tag import_violations_path, multipart: true do %>
   <%= file_field_tag :file %>
   <%= submit_tag "Import CSV" %>

@@ -5,10 +5,8 @@ class ViolationsController < ApplicationController
   # GET /violations.json
   def index
     @violations = Violation.all
-    @category_list = Violation.all.map{|v| {category: v.violation_category, date: v.violation_date} }
+    @category_list = Violation.all.map{|v| {category: v.violation_category, date: v.violation_date}}
     @category_group = @category_list.group_by{|v| v[:category]}.each{|_, d| d.map!{|v| v[:date]}}
-    @categories = Violation.all.map(&:violation_category).each_with_object(Hash.new(0)) { |category,counts| counts[category] += 1 }
-
   end
 
   def import
